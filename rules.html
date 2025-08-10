@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Studio - Rules</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1>Community Rules</h1>
+            <p>Welcome to the Roblox creators community! By remaining in this server, you agree to abide by these rules.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section hidden">
+            <div class="container">
+                <div class="rules-list">
+                    <h3><i class="fas fa-handshake"></i> 1. Respect and Politeness</h3>
+                    <p>Treat all members with respect, regardless of their role or experience. Harassment, insults, hate speech, and personal attacks are strictly forbidden. Be friendly and welcoming to new members.</p>
+                    
+                    <h3><i class="fas fa-exclamation-triangle"></i> 2. Spam & Content</h3>
+                    <p>No spamming, flooding the chat, or excessive use of mentions. NSFW (Not Safe For Work) or explicit content is strictly prohibited. Malicious links or files are forbidden and will result in an immediate ban.</p>
+                    
+                    <h3><i class="fas fa-bullhorn"></i> 3. Advertising</h3>
+                    <p>Self-promotion for your Roblox creations is allowed, but only in the designated channels. Asking for or trading Robux is strictly prohibited.</p>
+                    
+                    <h3><i class="fas fa-lock"></i> 4. Safety & Privacy</h3>
+                    <p>Do not share any personal information (real name, address, phone number, etc.). Be cautious with external links and DMs from strangers. Report any suspicious activity to staff.</p>
+                    
+                    <h3><i class="fas fa-gamepad"></i> 5. In-Game Conduct</h3>
+                    <p>Fair play is mandatory. Cheating, exploits, or other malicious behavior in games is not allowed. Be a good sport during events and sessions with other members.</p>
+                    
+                    <h3><i class="fas fa-user-shield"></i> 6. The Staff</h3>
+                    <p>The staff is here to enforce the rules. Please respect their decisions and instructions. For any issues, please contact a staff member directly.</p>
+                    
+                    <h3><i class="fas fa-folder-open"></i> 7. Project Forum Rules</h3>
+                    <p>This is the place to showcase your game development work, prototypes, and creative ideas.</p>
+                    <ul>
+                        <li>**Allowed posts:** Work-in-progress updates, announcements for your own games or tools, collaboration requests, and devlogs.</li>
+                        <li>**Not allowed:** Off-topic content, low-effort or spam posts, advertising unrelated communities or servers, and sharing assets without permission.</li>
+                    </ul>
+
+                    <h3><i class="fas fa-hand-holding-usd"></i> 8. Commissions Rules</h3>
+                    <p>This channel is exclusively for commissions. All discussions should be transparent and take place in a thread. Never accept or request money outside of secure and traceable payment methods. Never pay the full amount before the final work is delivered.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <script src="script.js"></script>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.2 });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Studio - Memory Game</title>
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Games <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="clicker.html">Clicker Game</a>
+                        <a href="memory.html">Memory Game</a>
+                    </div>
+                </li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <div class="container">
+            <h1>Memory Game</h1>
+            <p>Find the matching pairs!</p>
+            <div class="memory-grid" id="memory-grid"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Memory Game Logic
+        const cardsArray = [
+            'fa-code', 'fa-code',
+            'fa-paint-brush', 'fa-paint-brush',
+            'fa-hammer', 'fa-hammer',
+            'fa-music', 'fa-music',
+            'fa-bug', 'fa-bug',
+            'fa-trophy', 'fa-trophy',
+            'fa-user-shield', 'fa-user-shield',
+            'fa-star', 'fa-star'
+        ];
+
+        let cardsChosen = [];
+        let cardsChosenIds = [];
+        const cardsMatched = [];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function createBoard() {
+            shuffle(cardsArray);
+            const grid = document.getElementById('memory-grid');
+            cardsArray.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.setAttribute('data-id', index);
+
+                const cardBack = document.createElement('div');
+                cardBack.classList.add('card-back');
+                cardBack.innerHTML = `<i class="fas ${card}"></i>`;
+
+                const cardFront = document.createElement('div');
+                cardFront.classList.add('card-front');
+                cardFront.innerHTML = `<i class="fas fa-question"></i>`;
+
+                cardElement.appendChild(cardBack);
+                cardElement.appendChild(cardFront);
+
+                cardElement.addEventListener('click', flipCard);
+                grid.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            const cardId = this.getAttribute('data-id');
+            cardsChosen.push(cardsArray[cardId]);
+            cardsChosenIds.push(cardId);
+            this.classList.add('flipped');
+
+            if (cardsChosen.length === 2) {
+                setTimeout(checkForMatch, 500);
+            }
+        }
+
+        function checkForMatch() {
+            const cards = document.querySelectorAll('.memory-card');
+            const [optionOneId, optionTwoId] = cardsChosenIds;
+
+            if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
+                cards[optionOneId].classList.add('matched');
+                cards[optionTwoId].classList.add('matched');
+                cardsMatched.push(cardsChosen);
+            } else {
+                cards[optionOneId].classList.remove('flipped');
+                cards[optionTwoId].classList.remove('flipped');
+            }
+
+            cardsChosen = [];
+            cardsChosenIds = [];
+
+            if (cardsMatched.length === cardsArray.length / 2) {
+                alert('Congratulations! You found all the matches!');
+            }
+        }
+
+        createBoard();
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

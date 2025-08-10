@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+     <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="page-404">
+        <div class="container">
+            <h1>404</h1>
+            <h2>Oops! Page Not Found</h2>
+            <p>We can't seem to find the page you're looking for. Don't worry, you can go back to the main pages!</p>
+            <a href="index.html" class="button">Go to Homepage</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

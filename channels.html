@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Studio - Channels & Guides</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1>Server Channels & Guides</h1>
+            <p>Information on where to post and how to get help.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section hidden">
+            <div class="container">
+                <h2>Text Channels</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-comments"></i> General</h3>
+                        <p>A place for general discussion and community interaction.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-lightbulb"></i> Suggestions</h3>
+                        <p>Share your ideas to improve the server and its community.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                        <p>Stay up-to-date with important news and server-wide updates.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-folder-open"></i> Projects</h3>
+                        <p>Showcase your game development work, prototypes, and creative ideas.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-code"></i> Scripts</h3>
+                        <p>Share and discuss working scripts, but make sure to provide a clear description.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-wrench"></i> Support</h3>
+                        <p>Get help for issues and questions. Please use the ticket system for serious problems.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-hand-holding-usd"></i> Commissions</h3>
+                        <p>A channel to offer or request development services and skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section hidden">
+            <div class="container">
+                <h2>Voice Channels</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-headset"></i> General Voice</h3>
+                        <p>Hang out and chat with other members of the community.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-gamepad"></i> General Play</h3>
+                        <p>Connect with other members to play games together.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-video"></i> Streamer</h3>
+                        <p>Dedicated space for members who are streaming their projects or gameplay.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section hidden">
+            <div class="container">
+                <h2>Forum Guides</h2>
+                <div class="rules-list">
+                    <h3><i class="fas fa-folder-open"></i> Project Forum Guide</h3>
+                    <p>This is the place to showcase your game development work, prototypes, and creative ideas. **Allowed posts** include work-in-progress, announcements for your games, collaboration requests, and devlogs. **Not allowed** are off-topic content, low-effort or spam posts, and advertising unrelated servers.</p>
+                    
+                    <h3><i class="fas fa-code"></i> Script Forum Guide</h3>
+                    <p>Only post working scripts with a clear description of what they do, how to use them, and any dependencies. No malicious code or copyright infringement. Encourage collaboration by making scripts open-source if possible.</p>
+
+                    <h3><i class="fas fa-wrench"></i> Support Forum Guide</h3>
+                    <p>Make sure you tag your post correctly. Use the ticket system for complex issues. When reporting a bug, send your code as a code block, not a screenshot, and provide the exact error you're facing. Do not post in the #general channel.</p>
+                    
+                    <h3><i class="fas fa-hand-holding-usd"></i> Commissions Rules</h3>
+                    <p>Be honest about your skills and rates. All important discussions about a project (briefing, payments, modifications) should take place in a thread. Never accept or request money outside of secure, traceable methods. It is recommended to ask for an upfront deposit (typically 25-50%), but never pay the full amount before the final work is delivered.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <script src="script.js"></script>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.2 });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

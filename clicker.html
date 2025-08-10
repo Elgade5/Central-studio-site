@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Studio - Clicker Game</title>
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Games <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="clicker.html">Clicker Game</a>
+                        <a href="memory.html">Memory Game</a>
+                    </div>
+                </li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <div class="container">
+            <h1>Clicker Game</h1>
+            <p class="game-stats">
+                Score: <span id="score">0</span> |
+                Per Second: <span id="per-second">0</span> |
+                Per Click: <span id="per-click">1</span>
+            </p>
+            <button id="click-button">
+                <i class="fas fa-hand-pointer"></i>
+            </button>
+            
+            <div class="shop-container">
+                <h2>Shop</h2>
+                <div id="shop-items-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Clicker Game Logic
+        const clickButton = document.getElementById('click-button');
+        const scoreDisplay = document.getElementById('score');
+        const perSecondDisplay = document.getElementById('per-second');
+        const perClickDisplay = document.getElementById('per-click');
+        const shopContainer = document.getElementById('shop-items-container');
+
+        let score = 0;
+        let perClick = 1;
+        let perSecond = 0;
+
+        const shopItems = [
+            { id: 1, name: 'Trainee', description: 'Generates 1 point/s', icon: 'fas fa-user-graduate', price: 10, costMultiplier: 1.15, count: 0, perSecond: 1 },
+            { id: 2, name: 'Intern', description: 'Generates 5 points/s', icon: 'fas fa-user-tie', price: 100, costMultiplier: 1.15, count: 0, perSecond: 5 },
+            { id: 3, name: 'Junior Dev', description: 'Generates 20 points/s', icon: 'fas fa-laptop-code', price: 500, costMultiplier: 1.15, count: 0, perSecond: 20 },
+            { id: 4, name: 'Senior Dev', description: 'Generates 100 points/s', icon: 'fas fa-user-astronaut', price: 2000, costMultiplier: 1.15, count: 0, perSecond: 100 },
+            { id: 5, name: 'Project Lead', description: 'Generates 500 points/s', icon: 'fas fa-users', price: 10000, costMultiplier: 1.15, count: 0, perSecond: 500 },
+            { id: 6, name: 'CTO', description: 'Generates 2500 points/s', icon: 'fas fa-user-secret', price: 50000, costMultiplier: 1.15, count: 0, perSecond: 2500 },
+            { id: 7, name: 'Roblox Studio', description: 'Generates 12000 points/s', icon: 'fas fa-cubes', price: 250000, costMultiplier: 1.15, count: 0, perSecond: 12000 },
+            { id: 8, name: 'Data Center', description: 'Generates 60000 points/s', icon: 'fas fa-server', price: 1000000, costMultiplier: 1.15, count: 0, perSecond: 60000 },
+            { id: 9, name: 'A.I. Assistant', description: 'Generates 300,000 points/s', icon: 'fas fa-robot', price: 5000000, costMultiplier: 1.15, count: 0, perSecond: 300000 },
+            { id: 10, name: 'Space-Based Server', description: 'Generates 1.5M points/s', icon: 'fas fa-satellite', price: 25000000, costMultiplier: 1.15, count: 0, perSecond: 1500000 },
+            { id: 11, name: 'Quantum Computer', description: 'Generates 8M points/s', icon: 'fas fa-atom', price: 100000000, costMultiplier: 1.15, count: 0, perSecond: 8000000 },
+            { id: 12, name: 'Roblox Dev Grant', description: 'Boosts click power by 10', icon: 'fas fa-award', price: 500, costMultiplier: 2, count: 0, perClick: 10 },
+            { id: 13, name: 'Premium Subscription', description: 'Boosts click power by 50', icon: 'fas fa-gem', price: 5000, costMultiplier: 2, count: 0, perClick: 50 },
+            { id: 14, name: 'Engine Upgrade', description: 'Boosts click power by 250', icon: 'fas fa-gears', price: 25000, costMultiplier: 2, count: 0, perClick: 250 },
+            { id: 15, name: 'Community Event', description: 'Boosts click power by 1000', icon: 'fas fa-bullhorn', price: 100000, costMultiplier: 2, count: 0, perClick: 1000 },
+        ];
+
+        function updateDisplay() {
+            scoreDisplay.textContent = formatNumber(score);
+            perSecondDisplay.textContent = formatNumber(perSecond);
+            perClickDisplay.textContent = formatNumber(perClick);
+            
+            shopItems.forEach(item => {
+                const priceElement = document.getElementById(`price-${item.id}`);
+                const countElement = document.getElementById(`count-${item.id}`);
+                if (priceElement) priceElement.textContent = formatNumber(Math.floor(item.price));
+                if (countElement) countElement.textContent = item.count;
+            });
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
+        }
+
+        function renderShopItems() {
+            shopItems.forEach(item => {
+                const itemHtml = `
+                    <div class="shop-item" data-item-id="${item.id}">
+                        <div class="item-icon"><i class="${item.icon}"></i></div>
+                        <div class="item-info">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                        </div>
+                        <div class="item-buy">
+                            <span class="item-price">Cost: <span id="price-${item.id}">${formatNumber(item.price)}</span></span>
+                            <span class="item-count">Owned: <span id="count-${item.id}">${item.count}</span></span>
+                            <button class="buy-button">Buy</button>
+                        </div>
+                    </div>
+                `;
+                shopContainer.innerHTML += itemHtml;
+            });
+
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', buyItem);
+            });
+        }
+
+        function buyItem(event) {
+            const itemId = parseInt(event.target.closest('.shop-item').dataset.itemId);
+            const item = shopItems.find(i => i.id === itemId);
+
+            if (score >= item.price) {
+                score -= item.price;
+                item.count++;
+                
+                if (item.perSecond) {
+                    perSecond += item.perSecond;
+                }
+                if (item.perClick) {
+                    perClick += item.perClick;
+                }
+                
+                item.price = item.price * item.costMultiplier;
+                
+                updateDisplay();
+            } else {
+                alert("Not enough points!");
+            }
+        }
+
+        // Clicker Button
+        clickButton.addEventListener('click', () => {
+            score += perClick;
+            updateDisplay();
+        });
+
+        // Passive Income
+        setInterval(() => {
+            score += perSecond;
+            updateDisplay();
+        }, 1000);
+        
+        renderShopItems();
+        updateDisplay();
+    </script>
+</body>
+</html>

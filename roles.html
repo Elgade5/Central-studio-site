@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" type="image/x-icon" href="studio central roblox.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Studio - Roles</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-text">Central Studio</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roles.html">Roles</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="channels.html">Channels</a></li>
+                <li><div class="theme-toggle" id="theme-toggle"><i class="fas fa-sun"></i></div></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1>Our Roles</h1>
+            <p>Here's a list of all roles and their purpose in the server.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section hidden">
+            <div class="container">
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-user-shield"></i> Admin</h3>
+                        <p>Manages all aspects of the server. Full authority.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-user-cog"></i> Moderator</h3>
+                        <p>Enforces rules, assists members, and keeps the server organized.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-code"></i> Developer</h3>
+                        <p>Works on game systems, logic, and scripting.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-paint-brush"></i> Artist</h3>
+                        <p>Designs visual assets like UI, textures, icons, and concept art.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-hammer"></i> Builder</h3>
+                        <p>Constructs environments, maps, and structures in Roblox Studio.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-running"></i> Animator</h3>
+                        <p>Creates character animations and motion sequences for Roblox games.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-music"></i> Musician</h3>
+                        <p>Composes soundtracks, effects, and audio assets for projects.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-pen-nib"></i> Writer</h3>
+                        <p>Writes dialogue, lore, UI text, and other narrative content.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-user"></i> Member</h3>
+                        <p>Default role for members who have accepted the rules.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-star"></i> VIP</h3>
+                        <p>Special members with perks or community recognition.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-trophy"></i> Event Participant</h3>
+                        <p>Given to users who take part in community events.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-bug"></i> Tester</h3>
+                        <p>Accesses test versions and unreleased features.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Central Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <script src="script.js"></script>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.2 });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
